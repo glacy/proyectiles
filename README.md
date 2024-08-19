@@ -34,7 +34,7 @@ Visualización interactiva de la representación gráfica de una molécula de am
 
 ## Movimiento Armónico Simple (MAS)
 
-### posición vs tiempo
+### posición vs tiempo / velocidad vs tiempo / aceleración vs tiempo
 
 :link: [enlace](https://glacy.github.io/MAS/)
 
@@ -46,13 +46,13 @@ Gráfica y ecuación de la posición en función del tiempo. La persona usuaria 
 
 ## Movimiento de proyectiles
 
-### posición vs tiempo; trayectoria
+### posición x vs tiempo; posición y vs tiempo, trayectoria
 
 :link: [enlace](https://glacy.github.io/proyectiles/)
 
 Gráfica y ecuación de la posición horizontal y de la posición vertical en función del tiempo. Gráfica de la trayectoria.
 La persona usuaria ingresa los parámetros:
 
-- :point_right: posición inicial
-- :runner: velocidad de lanzamiento
+- :small_red_triangle_down: posición inicial
+- :basketball: velocidad de lanzamiento
 - 🔃ángulo de lanzamiento
