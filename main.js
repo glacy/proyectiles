@@ -105,6 +105,18 @@ function generarGrafico() {
     ],
   };
 
+  const dataYvsT = {
+    labels: timeArray,
+    datasets: [
+      {
+        label: `\\(y(t) = ${initialPositionY} + ${initialVelocity}\\sin (${initialAngle} ^{\\circ})  t -\\frac{1}{2}gt^2\\)`,
+        borderColor: "rgb(255, 204, 188)",
+        data: YpositionArray,
+        fill: false,
+        pointStyle: false,
+      },
+    ],
+  };
   const dataV = {
     labels: timeArray,
     datasets: [
@@ -118,7 +130,7 @@ function generarGrafico() {
     ],
   };
 
-  const dataA = {
+  const dataYvsX = {
     labels: timeArray,
     datasets: [
       {
@@ -198,7 +210,7 @@ function generarGrafico() {
     },
   };
 
-  const opcionesV = {
+  const opcionesYvsT = {
     responsive: true,
     animation: false,
     // aspectRatio: 1;
@@ -266,7 +278,7 @@ function generarGrafico() {
     },
   };
 
-  const opcionesA = {
+  const opcionesYvsX = {
     responsive: true,
     animation: false,
     // aspectRatio: 1;
@@ -334,11 +346,11 @@ function generarGrafico() {
     },
   };
 
-  const ctx = document.getElementById("chartCanvas").getContext("2d");
-  const ctv = document.getElementById("chartCanvasV").getContext("2d");
-  const cta = document.getElementById("chartCanvas-a").getContext("2d");
+  const ctxt = document.getElementById("chartCanvasXvsT").getContext("2d");
+  const ctyt = document.getElementById("chartCanvasYvsT").getContext("2d");
+  const ctyx = document.getElementById("chartCanvasYvsX").getContext("2d");
 
-  chartXvsT = new Chart(ctx, {
+  chartXvsT = new Chart(ctxt, {
     type: "line",
     data: dataXvsT,
     options: opciones,
@@ -346,19 +358,19 @@ function generarGrafico() {
     // maintainAspectRatio : false,
   });
 
-  chartYvsT = new Chart(ctv, {
+  chartYvsT = new Chart(ctyt, {
     type: "line",
-    data: dataV,
-    options: opcionesV,
-    plugins: [htmlLegendPluginV],
+    data: dataYvsT,
+    options: opcionesYvsT,
+    plugins: [htmlLegendPluginYvsT],
     // maintainAspectRatio : false,
   });
 
-  chartYvsX = new Chart(cta, {
+  chartYvsX = new Chart(ctyx, {
     type: "line",
-    data: dataA,
-    options: opcionesA,
-    plugins: [htmlLegendPluginA],
+    data: dataYvsX,
+    options: opcionesYvsX,
+    plugins: [htmlLegendPluginYvsX],
     // maintainAspectRatio : false,
   });
   //chartCanvas.update();
@@ -399,7 +411,7 @@ function generarArrayPosicionX(
 }
 
 function generarArrayPosicionY(
-  initialPositionX,
+  initialPositionY,
   initialVelocity,
   timeArray,
   initialAngle
@@ -407,7 +419,9 @@ function generarArrayPosicionY(
   const YpositionArray = [];
   timeArray.forEach((t) => {
     const position =
-      initialPositionY * Math.cos(initialVelocity * t + initialAngle * Math.PI);
+      initialPositionY +
+      initialVelocity * Math.sin((initialAngle * Math.PI) / 180) * t -
+      (9.81 * t * t) / 2;
     YpositionArray.push(position.toFixed(2));
   });
   return YpositionArray;
@@ -529,7 +543,7 @@ const htmlLegendPlugin = {
   },
 };
 
-const htmlLegendPluginV = {
+const htmlLegendPluginYvsT = {
   id: "htmlLegendV",
   afterUpdate(chartYvsT, args, options) {
     const ul = getOrCreateLegendList(chartYvsT, options.containerID);
@@ -593,7 +607,7 @@ const htmlLegendPluginV = {
   },
 };
 
-const htmlLegendPluginA = {
+const htmlLegendPluginYvsX = {
   id: "htmlLegendA",
   afterUpdate(chartYvsX, args, options) {
     const ul = getOrCreateLegendList(chartYvsX, options.containerID);
