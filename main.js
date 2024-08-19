@@ -35,6 +35,7 @@ const initialVelocity = parseFloat(
 const initialAngle = parseFloat(document.getElementById("initialAngle").value);
 
 const tmax = parseFloat(document.getElementById("tmax").value);
+
 function generarGrafico() {
   if (chartXvsT) {
     chartXvsT.destroy(); // Destruir el gráfico anterior si existe
@@ -658,3 +659,5 @@ const htmlLegendPluginYvsX = {
     });
   },
 };
+
+generarGrafico();

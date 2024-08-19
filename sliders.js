@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  MathJax.typeset();
+
   const sliders = [
     {
       slider: document.getElementById("initialPositionX"),
@@ -27,19 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const sym = valueDisplay.getAttribute("data-sym");
 
     valueDisplay.innerHTML = `${sym} ${slider.value} ${units}`;
-    MathJax.typesetPromise([valueDisplay]).catch(function (err) {
-      console.log("MathJax error: " + err.message);
-    });
-
-    // valueDisplay.textContent = sym + slider.value + units;
-    // const sliderRect = slider.getBoundingClientRect();
-    // const containerRect = slider.parentElement.getBoundingClientRect();
-    // const thumbWidth = 20; // Asumimos un ancho del "thumb" de 20px, puedes ajustarlo si es diferente
-    // const thumbPosition =
-    //   ((slider.value - slider.min) / (slider.max - slider.min)) *
-    //     sliderRect.width -
-    //   thumbWidth / 2;
-    // valueDisplay.style.left = `${thumbPosition + (containerRect.width - sliderRect.width) / 2}px`;
+    MathJax.typeset();
   }
 
   sliders.forEach(({ slider, valueDisplay }) => {
