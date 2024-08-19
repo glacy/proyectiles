@@ -155,7 +155,7 @@ function generarGrafico() {
         display: true,
         title: {
           display: true,
-          text: "Posición (cm)",
+          text: "Posición (m)",
           color: "#3a2c60",
           font: {
             family: "monospace",
@@ -252,7 +252,7 @@ function generarGrafico() {
           label: function (context) {
             let label = context.dataset.label || "";
             if (label) {
-              label = "v= ";
+              label = "y= ";
             }
             if (context.parsed.y !== null) {
               label +=
@@ -319,7 +319,7 @@ function generarGrafico() {
           label: function (context) {
             let label = context.dataset.label || "";
             if (label) {
-              label = "a= ";
+              label = "y= ";
             }
             if (context.parsed.y !== null) {
               label +=
