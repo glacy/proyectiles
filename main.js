@@ -85,10 +85,10 @@ function generarGrafico() {
     initialAngle
   );
 
-  const accelerationArray = generarArrayAceleracion(
-    initialPositionX,
+  const parabolaArray = generarArrayparabola(
+    initialPositionY,
     initialVelocity,
-    timeArray,
+    XpositionArray,
     initialAngle
   );
 
@@ -131,12 +131,12 @@ function generarGrafico() {
   };
 
   const dataYvsX = {
-    labels: timeArray,
+    labels: XpositionArray,
     datasets: [
       {
-        label: `\\(a(t) = -${initialPositionX}*(${initialVelocity})^2 \\cos(${initialVelocity}  t + ${initialAngle} \\pi)\\)`,
+        label: `\\(y(x) = ${initialPositionY}+ \\tan(${initialAngle})  x - \\displaystyle\\frac{gx^2}{2(${initialVelocity})^2\\cos^2 (${initialAngle})}\\)`,
         borderColor: "rgb(255, 204, 188)",
-        data: accelerationArray,
+        data: YpositionArray,
         fill: false,
         pointStyle: false,
       },
@@ -187,7 +187,7 @@ function generarGrafico() {
       // },
       htmlLegend: {
         // ID of the container to put the legend in
-        containerID: "legend-container",
+        containerID: "legend-container-1",
       },
       legend: {
         display: false,
@@ -201,7 +201,7 @@ function generarGrafico() {
             }
             if (context.parsed.y !== null) {
               label +=
-                new Intl.NumberFormat("en-US").format(context.parsed.y) + " cm";
+                new Intl.NumberFormat("en-US").format(context.parsed.y) + " m";
             }
             return label;
           },
@@ -234,7 +234,7 @@ function generarGrafico() {
         display: true,
         title: {
           display: true,
-          text: "Velocidad (cm/s)",
+          text: "Posición y (m)",
           color: "#3a2c60",
           font: {
             family: "monospace",
@@ -254,7 +254,7 @@ function generarGrafico() {
       // },
       htmlLegendV: {
         // ID of the container to put the legend in
-        containerID: "legend-container-v",
+        containerID: "legend-container-2",
       },
       legend: {
         display: false,
@@ -268,8 +268,7 @@ function generarGrafico() {
             }
             if (context.parsed.y !== null) {
               label +=
-                new Intl.NumberFormat("en-US").format(context.parsed.y) +
-                " cm/s";
+                new Intl.NumberFormat("en-US").format(context.parsed.y) + " m";
             }
             return label;
           },
@@ -287,7 +286,7 @@ function generarGrafico() {
         display: true,
         title: {
           display: true,
-          text: "Tiempo (s)",
+          text: "Posición x (m)",
           color: "#3a2c60",
           font: {
             family: "monospace",
@@ -302,7 +301,7 @@ function generarGrafico() {
         display: true,
         title: {
           display: true,
-          text: "Aceleración (cm/s^2)",
+          text: "Posición y (m)",
           color: "#3a2c60",
           font: {
             family: "monospace",
@@ -322,7 +321,7 @@ function generarGrafico() {
       // },
       htmlLegendA: {
         // ID of the container to put the legend in
-        containerID: "legend-container-a",
+        containerID: "legend-container-3",
       },
       legend: {
         display: false,
@@ -336,8 +335,7 @@ function generarGrafico() {
             }
             if (context.parsed.y !== null) {
               label +=
-                new Intl.NumberFormat("en-US").format(context.parsed.y) +
-                " cm/s^2";
+                new Intl.NumberFormat("en-US").format(context.parsed.y) + " m";
             }
             return label;
           },
@@ -444,23 +442,25 @@ function generarArrayVelocidad(
   return velocityArray;
 }
 
-function generarArrayAceleracion(
-  initialPositionX,
+function generarArrayparabola(
+  initialPositionY,
   initialVelocity,
-  timeArray,
+  XpositionArray,
   initialAngle
 ) {
-  const accelerationArray = [];
-  timeArray.forEach((t) => {
-    const acceleration =
-      -1 *
-      initialPositionX *
-      initialVelocity *
-      initialVelocity *
-      Math.cos(initialVelocity * t + initialAngle * Math.PI);
-    accelerationArray.push(acceleration.toFixed(2));
+  const parabolaArray = [];
+  XpositionArray.forEach((x) => {
+    const parabola =
+      initialPositionY +
+      x * Math.tan((initialAngle * Math.PI) / 180) -
+      (x * x * 9.81) /
+        (initialVelocity *
+          initialVelocity *
+          Math.cos((initialAngle * Math.PI) / 180) *
+          Math.cos((initialAngle * Math.PI) / 180));
+    parabolaArray.push(parabola.toFixed(2));
   });
-  return accelerationArray;
+  return parabolaArray;
 }
 
 const getOrCreateLegendList = (chart, id) => {
