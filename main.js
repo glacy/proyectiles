@@ -79,13 +79,6 @@ function generarGrafico() {
     initialAngle
   );
 
-  const velocityArray = generarArrayVelocidad(
-    initialPositionX,
-    initialVelocity,
-    timeArray,
-    initialAngle
-  );
-
   const parabolaArray = generarArrayparabola(
     initialPositionY,
     initialVelocity,
@@ -169,11 +162,6 @@ function generarGrafico() {
       },
     },
     plugins: {
-      // annotation: {
-      // annotations: {
-      // annotation3,box1
-      // }
-      // },
       htmlLegend: {
         // ID of the container to put the legend in
         containerID: "legend-container-1",
@@ -236,11 +224,6 @@ function generarGrafico() {
       },
     },
     plugins: {
-      // annotation: {
-      // annotations: {
-      // annotation3,box1
-      // }
-      // },
       htmlLegendV: {
         // ID of the container to put the legend in
         containerID: "legend-container-2",
@@ -303,11 +286,6 @@ function generarGrafico() {
       },
     },
     plugins: {
-      // annotation: {
-      // annotations: {
-      // annotation3,box1
-      // }
-      // },
       htmlLegendA: {
         // ID of the container to put the legend in
         containerID: "legend-container-3",
@@ -360,25 +338,17 @@ function generarGrafico() {
     plugins: [htmlLegendPluginYvsX],
     // maintainAspectRatio : false,
   });
-  //chartCanvas.update();
 }
 
 function generarArrayTiempo() {
   const tmax = parseFloat(document.getElementById("tmax").value);
 
-  //if (tmax > 0) {
   const timeArray = [];
   for (let t = 0; t <= tmax; t += 0.05) {
     timeArray.push(t.toFixed(3));
     console.log(timeArray);
   }
   return timeArray;
-  //} else {
-  // Muestra un mensaje de error o realiza otra acción
-  //  alert("El tiempo máximo debe ser mayor que cero.");
-  //  console.error("El tiempo máximo debe ser mayor que cero.");
-  //  return null; // Otra opción: devuelve un valor que indica un error
-  //}
 }
 
 function generarArrayPosicionX(
@@ -412,23 +382,6 @@ function generarArrayPosicionY(
     YpositionArray.push(position.toFixed(2));
   });
   return YpositionArray;
-}
-
-function generarArrayVelocidad(
-  initialPositionX,
-  initialVelocity,
-  timeArray,
-  initialAngle
-) {
-  const velocityArray = [];
-  timeArray.forEach((t) => {
-    const velocity =
-      -initialPositionX *
-      initialVelocity *
-      Math.sin(initialVelocity * t + initialAngle * Math.PI);
-    velocityArray.push(velocity.toFixed(2));
-  });
-  return velocityArray;
 }
 
 function generarArrayparabola(
@@ -491,17 +444,6 @@ const htmlLegendPlugin = {
       li.style.marginLeft = "10px";
       li.style.pointer = "grab";
 
-      // li.onclick = () => {
-      // const {type} = chart.config;
-      // if (type === 'pie' || type === 'doughnut') {
-      // // Pie and doughnut charts only have a single dataset and visibility is per item
-      // chart.toggleDataVisibility(item.index);
-      // } else {
-      // chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-      // }
-      // chart.update();
-      // };
-
       // Color box
       const boxSpan = document.createElement("span");
       boxSpan.style.background = item.fillStyle;
@@ -555,17 +497,6 @@ const htmlLegendPluginYvsT = {
       li.style.marginLeft = "10px";
       li.style.pointer = "grab";
 
-      // li.onclick = () => {
-      // const {type} = chart.config;
-      // if (type === 'pie' || type === 'doughnut') {
-      // // Pie and doughnut charts only have a single dataset and visibility is per item
-      // chart.toggleDataVisibility(item.index);
-      // } else {
-      // chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-      // }
-      // chart.update();
-      // };
-
       // Color box
       const boxSpan = document.createElement("span");
       boxSpan.style.background = item.fillStyle;
@@ -618,17 +549,6 @@ const htmlLegendPluginYvsX = {
       li.style.flexDirection = "row";
       li.style.marginLeft = "10px";
       li.style.pointer = "grab";
-
-      // li.onclick = () => {
-      // const {type} = chart.config;
-      // if (type === 'pie' || type === 'doughnut') {
-      // // Pie and doughnut charts only have a single dataset and visibility is per item
-      // chart.toggleDataVisibility(item.index);
-      // } else {
-      // chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-      // }
-      // chart.update();
-      // };
 
       // Color box
       const boxSpan = document.createElement("span");
