@@ -658,16 +658,3 @@ const htmlLegendPluginYvsX = {
     });
   },
 };
-
-function updateChart() {
-  position = document.getElementById("initialPositionX").value;
-  velocity = document.getElementById("initialVelocity").value;
-  time = document.getElementById("tmax").value;
-  initialAngle = document.getElementById("initialAngle").value;
-  document.getElementById("initialPositionX").textContent = position;
-  document.getElementById("initialVelocity").textContent = velocity;
-  document.getElementById("tmax").textContent = time;
-  document.getElementById("initialAngle").textContent = initialAngle;
-  chartCanvas.data.labels = Array.from({ length: time }, (_, i) => i + 1);
-  chartCanvasV.data.labels = Array.from({ length: time }, (_, i) => i + 1);
-}
