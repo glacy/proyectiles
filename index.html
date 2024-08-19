@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gráfica M.A.S</title>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>  -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="\node_modules\chartjs-plugin-annotation\dist\chartjs-plugin-annotation.min.js"></script> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light"> 
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://tecdigital.tec.ac.cr/repositorio/tecdigital/TD/img/tec-logo.png"
+            alt="tec-logo"
+            width="150"
+          />
+        </a>
+      </div>
+    </nav>
+
+    <div id="informacion" class="container">
+      <div class="row">
+        <div
+          class="col-md-2 col-sm-2 col-lg-2"
+          style="text-align: center; padding: 20px"
+          aria-hidden="true"
+        >
+          <img
+            src="https://tecdigital.tec.ac.cr/repositorio/tecdigital/ESC_FISICA/img/consigna_orientacion.png"
+            width="75"
+            alt="instrucciones"
+          />
+        </div>
+        <div class="col-md-10 col-sm-10 col-lg-10">
+          <p>
+            El movimiento armónico simple (M.A.S) está definido por la ecuación
+            $$x(t)=A \\cos (\omega t + \phi), $$ donde \(A\) es la amplitud,
+            \(\omega \) la frecuencia angular y \(\phi\) el angulo de fase.
+          </p>
+
+          <p>
+            \(x(t)\) representa la posición del sistema en el instante \(t.\)
+          </p>
+          <p>
+            De esta definición se tiene que la velocidad \(v(t)\) y la aceleración están dadas por $$v(t)=-A\omega \\sin (\omega t + \phi)$$ y 
+            $$a(t)=-A\omega^2 \\cos (\omega t + \phi)$$
+          </p>
+          <p>
+            Para visualizar la gráfica de <code>posición vs tiempo</code>, <code>velocidad vs tiempo</code> y <code>aceleración vs tiempo</code> en un
+            movimiento armónico simple, ajuste los valores de \(A\), \(\omega \)
+            y \(\phi\).
+          </p>
+
+          
+        </div>
+      </div>
+    </div>
+
+    
+                
+      <div id="chart-container" class="container">
+        
+          <section id="controles">
+            <div id="controles" class="row">
+              <div class="col input-group mb-3" id="amplitud">
+                
+                <div class="slider-container">
+                  <span
+                    class="slider-value"
+                    id="sliderValue1"
+                    data-units=" cm"
+                    data-sym="\(A =\)"
+                    ></span
+                  >
+                  
+                  <span class="input-group-text">
+                    <input
+                      id="initialPosition"
+                      type="range"
+                      class="form-range"
+                      value="1"
+                      min="1"
+                      max="5"
+                      step="0.05"
+                      aria-label="initialPosition"
+                      aria-describedby="initialPosition"
+                    />
+                  </span>
+                  
+                </div>
+              </div>
+      
+              <div class="col input-group mb-3" id="frecuencia">
+              
+              <div class="slider-container">
+                <span
+                  class="slider-value"
+                  id="sliderValue2"
+                  data-units=" rad/s"
+                  data-sym="\(\omega =\)"
+                  >1</span
+                >
+                <span class="input-group-text">
+                  <input
+                    id="initialVelocity"
+                    type="range"
+                    class="form-range"
+                    value="1"
+                    min=".1"
+                    max="7.5"
+                    step="0.01"
+                    aria-label="initialVelocity"
+                    aria-describedby="initialVelocity"
+                  />
+                </span>
+              </div>
+            </div>
+      
+            <div class="col input-group mb-3" id="fase">
+              
+              <div class="slider-container">
+                <span
+                  class="slider-value"
+                  id="sliderValue3"
+                  data-units=" &pi; rad"
+                  data-sym="\(\phi =\)"
+                ></span>
+                <span class="input-group-text">
+                  <input
+                    id="Phase"
+                    type="range"
+                    class="form-range"
+                    value="0"
+                    min="0"
+                    max="2"
+                    step=".05"
+                    aria-label="Phase"
+                    aria-describedby="Phase"
+                  />
+                </span>
+              </div>
+            </div>
+      
+            <div class="col input-group mb-3" id="tiempo">
+              
+              <div class="slider-container">
+                <span
+                  class="slider-value"
+                  id="sliderValue4"
+                  data-units=" s"
+                  data-sym="\(t_{\text{máx}} =\)"
+                  >1</span
+                >
+                <span class="input-group-text">
+                  <input
+                    id="tmax"
+                    type="range"
+                    class="form-range"
+                    value="10"
+                    min="0.1"
+                    max="10"
+                    step="0.1"
+                    aria-label="tmax"
+                    aria-describedby="tmax"
+                  />
+                </span>
+              </div>
+            </div>
+          </section>
+      
+          <div>
+            <section>
+              <div id="legend-container"></div>
+            </section>
+            <section>
+              <canvas id="chartCanvas"></canvas>
+            </section>
+          </div>
+
+          <div>
+            <section>
+              <div id="legend-container-v"></div>
+            </section>
+            <section>
+              <canvas id="chartCanvasV"></canvas>
+            </section>
+          </div>
+
+          <div>
+            <section>
+              <div id="legend-container-a"></div>
+            </section>
+            <section>
+              <canvas id="chartCanvas-a"></canvas>
+            </section>
+          </div>
+      </div>
+    
+      
+  </div>
+
+    <footer class="site-footer">
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col col-sm-12 col-lg-6 col-md-6">
+            <p>
+              <a
+                title="escribir a glacy@itcr.ac.cr"
+                href="mailto: glacy@itcr.ac.cr"
+                target="_blank"
+                rel="noopener"
+                ><span class="material-icons" aria-hidden="true">mail</span
+                >glacy@itcr.ac.cr</a
+              >
+            </p>
+          </div>
+          <div class="col col-sm-12 col-lg-6 col-md-6">
+            <p>
+              <a
+                title="ir al repositorio"
+                href="https://github.com/glacy/MAS"
+                target="_blank"
+                rel="noopener"
+                ><span class="material-icons" aria-hidden="true">code</span
+                >Código fuente</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="sliders.js"></script>
+    <!-- <script src="fullscreen.js"></script> -->
+  </body>
+</html>
