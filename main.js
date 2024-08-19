@@ -365,20 +365,20 @@ function generarGrafico() {
 
 function generarArrayTiempo() {
   const tmax = parseFloat(document.getElementById("tmax").value);
-  // const omega = parseFloat(document.getElementById("initialVelocity").value);
-  // const tmax = (3 * 2 * Math.PI) / omega;
-  if (tmax > 0) {
-    const timeArray = [];
-    for (let t = 0; t <= tmax; t += 0.1) {
-      timeArray.push(t.toFixed(2));
-    }
-    return timeArray;
-  } else {
-    // Muestra un mensaje de error o realiza otra acción
-    alert("El tiempo máximo debe ser mayor que cero.");
-    console.error("El tiempo máximo debe ser mayor que cero.");
-    return null; // Otra opción: devuelve un valor que indica un error
+
+  //if (tmax > 0) {
+  const timeArray = [];
+  for (let t = 0; t <= tmax; t += 0.05) {
+    timeArray.push(t.toFixed(3));
+    console.log(timeArray);
   }
+  return timeArray;
+  //} else {
+  // Muestra un mensaje de error o realiza otra acción
+  //  alert("El tiempo máximo debe ser mayor que cero.");
+  //  console.error("El tiempo máximo debe ser mayor que cero.");
+  //  return null; // Otra opción: devuelve un valor que indica un error
+  //}
 }
 
 function generarArrayPosicionX(
@@ -392,7 +392,7 @@ function generarArrayPosicionX(
     const position =
       initialPositionX +
       initialVelocity * Math.cos((initialAngle * Math.PI) / 180) * t;
-    XpositionArray.push(position.toFixed(2));
+    XpositionArray.push(position.toFixed(4));
   });
   return XpositionArray;
 }
