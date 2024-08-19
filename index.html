@@ -82,42 +82,70 @@
         
           <section id="controles">
             <div id="controles" class="row">
-              <div class="col input-group mb-3" id="amplitud">
+              <div class="col input-group mb-3" id="xInicial">
                 
                 <div class="slider-container">
                   <span
                     class="slider-value"
                     id="sliderValue1"
-                    data-units=" cm"
-                    data-sym="\(A =\)"
+                    data-units=" m"
+                    data-sym="\(x_0 =\)"
                     ></span
                   >
                   
                   <span class="input-group-text">
                     <input
-                      id="initialPosition"
+                      id="initialPositionX"
                       type="range"
                       class="form-range"
                       value="1"
                       min="1"
-                      max="5"
-                      step="0.05"
-                      aria-label="initialPosition"
-                      aria-describedby="initialPosition"
+                      max="10"
+                      step="1"
+                      aria-label="initialPositionX"
+                      aria-describedby="initialPositionX"
+                    />
+                  </span>
+                  
+                </div>
+              </div>
+
+              <div class="col input-group mb-3" id="yInicial">
+                
+                <div class="slider-container">
+                  <span
+                    class="slider-value"
+                    id="sliderValue2"
+                    data-units=" m"
+                    data-sym="\(y_0 =\)"
+                    ></span
+                  >
+                  
+                  <span class="input-group-text">
+                    <input
+                      id="initialPositionY"
+                      type="range"
+                      class="form-range"
+                      value="1"
+                      min="1"
+                      max="10"
+                      step="1"
+                      aria-label="initialPositionY"
+                      aria-describedby="initialPositionY"
                     />
                   </span>
                   
                 </div>
               </div>
       
-              <div class="col input-group mb-3" id="frecuencia">
+              <div class="col input-group mb-3" id="velocidadInicial">
               
               <div class="slider-container">
                 <span
                   class="slider-value"
-                  id="sliderValue2"
-                  data-units=" rad/s"
-                  data-sym="\(\omega =\)"
+                  id="sliderValue3"
+                  data-units=" m/s"
+                  data-sym="\(v_0=\)"
                   >1</span
                 >
                 <span class="input-group-text">
@@ -126,9 +154,9 @@
                     type="range"
                     class="form-range"
                     value="1"
-                    min=".1"
-                    max="7.5"
-                    step="0.01"
+                    min="0"
+                    max="25"
+                    step="1"
                     aria-label="initialVelocity"
                     aria-describedby="initialVelocity"
                   />
@@ -136,26 +164,26 @@
               </div>
             </div>
       
-            <div class="col input-group mb-3" id="fase">
+            <div class="col input-group mb-3" id="anguloInicial">
               
               <div class="slider-container">
                 <span
                   class="slider-value"
-                  id="sliderValue3"
-                  data-units=" &pi; rad"
-                  data-sym="\(\phi =\)"
+                  id="sliderValue4"
+                  data-units="\(^\circ\)"
+                  data-sym="\(\theta_0 =\)"
                 ></span>
                 <span class="input-group-text">
                   <input
-                    id="Phase"
+                    id="initialAngle"
                     type="range"
                     class="form-range"
-                    value="0"
+                    value="45"
                     min="0"
-                    max="2"
-                    step=".05"
-                    aria-label="Phase"
-                    aria-describedby="Phase"
+                    max="90"
+                    step="1"
+                    aria-label="initialAngle"
+                    aria-describedby="initialAngle"
                   />
                 </span>
               </div>
@@ -166,7 +194,7 @@
               <div class="slider-container">
                 <span
                   class="slider-value"
-                  id="sliderValue4"
+                  id="sliderValue5"
                   data-units=" s"
                   data-sym="\(t_{\text{máx}} =\)"
                   >1</span
@@ -178,7 +206,7 @@
                     class="form-range"
                     value="10"
                     min="0.1"
-                    max="10"
+                    max="20"
                     step="0.1"
                     aria-label="tmax"
                     aria-describedby="tmax"

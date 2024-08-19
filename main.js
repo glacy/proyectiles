@@ -1,78 +1,104 @@
 // Añadir eventos a los sliders
 document
-  .getElementById("initialPosition")
+  .getElementById("initialPositionX")
+  .addEventListener("input", generarGrafico);
+document
+  .getElementById("initialPositionY")
   .addEventListener("input", generarGrafico);
 document
   .getElementById("initialVelocity")
   .addEventListener("input", generarGrafico);
 document.getElementById("tmax").addEventListener("input", generarGrafico);
 
-document.getElementById("Phase").addEventListener("input", generarGrafico);
+document
+  .getElementById("initialAngle")
+  .addEventListener("input", generarGrafico);
 
-let chartX;
-let chartV;
-let chartA;
+document.getElementById("tmax").addEventListener("input", generarGrafico);
 
-const initialPosition = parseFloat(
-  document.getElementById("initialPosition").value
+let chartXvsT;
+let chartYvsT;
+let chartYvsX;
+
+const initialPositionX = parseFloat(
+  document.getElementById("initialPositionX").value
 );
+
+const initialPositionY = parseFloat(
+  document.getElementById("initialPositionY").value
+);
+
 const initialVelocity = parseFloat(
   document.getElementById("initialVelocity").value
 );
 
-const Phase = parseFloat(document.getElementById("Phase").value);
+const initialAngle = parseFloat(document.getElementById("initialAngle").value);
 
+const tmax = parseFloat(document.getElementById("tmax").value);
 function generarGrafico() {
-  if (chartX) {
-    chartX.destroy(); // Destruir el gráfico anterior si existe
+  if (chartXvsT) {
+    chartXvsT.destroy(); // Destruir el gráfico anterior si existe
   }
 
-  if (chartV) {
-    chartV.destroy();
+  if (chartYvsT) {
+    chartYvsT.destroy();
   }
 
-  if (chartA) {
-    chartA.destroy();
+  if (chartYvsX) {
+    chartYvsX.destroy();
   }
-  const initialPosition = parseFloat(
-    document.getElementById("initialPosition").value
+  const initialPositionX = parseFloat(
+    document.getElementById("initialPositionX").value
+  );
+
+  const initialPositionY = parseFloat(
+    document.getElementById("initialPositionY").value
   );
   const initialVelocity = parseFloat(
     document.getElementById("initialVelocity").value
   );
 
-  const Phase = parseFloat(document.getElementById("Phase").value);
+  const initialAngle = parseFloat(
+    document.getElementById("initialAngle").value
+  );
 
   const timeArray = generarArrayTiempo();
 
-  const positionArray = generarArrayPosicion(
-    initialPosition,
+  const XpositionArray = generarArrayPosicionX(
+    initialPositionX,
     initialVelocity,
     timeArray,
-    Phase
+    initialAngle
+  );
+
+  const YpositionArray = generarArrayPosicionY(
+    initialPositionY,
+    initialVelocity,
+    timeArray,
+    initialAngle
   );
 
   const velocityArray = generarArrayVelocidad(
-    initialPosition,
+    initialPositionX,
     initialVelocity,
     timeArray,
-    Phase
+    initialAngle
   );
 
   const accelerationArray = generarArrayAceleracion(
-    initialPosition,
+    initialPositionX,
     initialVelocity,
     timeArray,
-    Phase
+    initialAngle
   );
 
-  const data = {
+  const dataXvsT = {
     labels: timeArray,
     datasets: [
       {
-        label: `\\(x(t) = ${initialPosition} \\cos(${initialVelocity}  t + ${Phase} \\pi)\\)`,
+        label: `\\(x(t) = ${initialPositionX} + ${initialVelocity}\\cos (${initialAngle} ^{\\circ})  t \\)`,
         borderColor: "rgb(255, 204, 188)",
-        data: positionArray,
+        data: XpositionArray,
         fill: false,
         pointStyle: false,
       },
@@ -83,7 +109,7 @@ function generarGrafico() {
     labels: timeArray,
     datasets: [
       {
-        label: `\\(v(t) = -${initialPosition}*${initialVelocity} \\sin(${initialVelocity}  t + ${Phase} \\pi)\\)`,
+        label: `\\(v(t) = -${initialPositionX}*${initialVelocity} \\sin(${initialVelocity}  t + ${initialAngle} \\pi)\\)`,
         borderColor: "rgb(255, 204, 188)",
         data: velocityArray,
         fill: false,
@@ -96,7 +122,7 @@ function generarGrafico() {
     labels: timeArray,
     datasets: [
       {
-        label: `\\(a(t) = -${initialPosition}*(${initialVelocity})^2 \\cos(${initialVelocity}  t + ${Phase} \\pi)\\)`,
+        label: `\\(a(t) = -${initialPositionX}*(${initialVelocity})^2 \\cos(${initialVelocity}  t + ${initialAngle} \\pi)\\)`,
         borderColor: "rgb(255, 204, 188)",
         data: accelerationArray,
         fill: false,
@@ -312,15 +338,15 @@ function generarGrafico() {
   const ctv = document.getElementById("chartCanvasV").getContext("2d");
   const cta = document.getElementById("chartCanvas-a").getContext("2d");
 
-  chartX = new Chart(ctx, {
+  chartXvsT = new Chart(ctx, {
     type: "line",
-    data: data,
+    data: dataXvsT,
     options: opciones,
     plugins: [htmlLegendPlugin],
     // maintainAspectRatio : false,
   });
 
-  chartV = new Chart(ctv, {
+  chartYvsT = new Chart(ctv, {
     type: "line",
     data: dataV,
     options: opcionesV,
@@ -328,7 +354,7 @@ function generarGrafico() {
     // maintainAspectRatio : false,
   });
 
-  chartA = new Chart(cta, {
+  chartYvsX = new Chart(cta, {
     type: "line",
     data: dataA,
     options: opcionesA,
@@ -344,7 +370,7 @@ function generarArrayTiempo() {
   // const tmax = (3 * 2 * Math.PI) / omega;
   if (tmax > 0) {
     const timeArray = [];
-    for (let t = 0; t <= tmax; t += 0.05) {
+    for (let t = 0; t <= tmax; t += 0.1) {
       timeArray.push(t.toFixed(2));
     }
     return timeArray;
@@ -356,52 +382,68 @@ function generarArrayTiempo() {
   }
 }
 
-function generarArrayPosicion(
-  initialPosition,
+function generarArrayPosicionX(
+  initialPositionX,
   initialVelocity,
   timeArray,
-  Phase
+  initialAngle
 ) {
-  const positionArray = [];
+  const XpositionArray = [];
   timeArray.forEach((t) => {
     const position =
-      initialPosition * Math.cos(initialVelocity * t + Phase * Math.PI);
-    positionArray.push(position.toFixed(2));
+      initialPositionX +
+      initialVelocity * Math.cos((initialAngle * Math.PI) / 180) * t;
+    XpositionArray.push(position.toFixed(2));
   });
-  return positionArray;
+  return XpositionArray;
+}
+
+function generarArrayPosicionY(
+  initialPositionX,
+  initialVelocity,
+  timeArray,
+  initialAngle
+) {
+  const YpositionArray = [];
+  timeArray.forEach((t) => {
+    const position =
+      initialPositionY * Math.cos(initialVelocity * t + initialAngle * Math.PI);
+    YpositionArray.push(position.toFixed(2));
+  });
+  return YpositionArray;
 }
 
 function generarArrayVelocidad(
-  initialPosition,
+  initialPositionX,
   initialVelocity,
   timeArray,
-  Phase
+  initialAngle
 ) {
   const velocityArray = [];
   timeArray.forEach((t) => {
     const velocity =
-      -initialPosition *
+      -initialPositionX *
       initialVelocity *
-      Math.sin(initialVelocity * t + Phase * Math.PI);
+      Math.sin(initialVelocity * t + initialAngle * Math.PI);
     velocityArray.push(velocity.toFixed(2));
   });
   return velocityArray;
 }
 
 function generarArrayAceleracion(
-  initialPosition,
+  initialPositionX,
   initialVelocity,
   timeArray,
-  Phase
+  initialAngle
 ) {
   const accelerationArray = [];
   timeArray.forEach((t) => {
     const acceleration =
       -1 *
-      initialPosition *
+      initialPositionX *
       initialVelocity *
       initialVelocity *
-      Math.cos(initialVelocity * t + Phase * Math.PI);
+      Math.cos(initialVelocity * t + initialAngle * Math.PI);
     accelerationArray.push(acceleration.toFixed(2));
   });
   return accelerationArray;
@@ -427,7 +469,7 @@ const getOrCreateLegendList = (chart, id) => {
 const htmlLegendPlugin = {
   id: "htmlLegend",
   afterUpdate(chart, args, options) {
-    const ul = getOrCreateLegendList(chartX, options.containerID);
+    const ul = getOrCreateLegendList(chartXvsT, options.containerID);
 
     // Remove old legend items
     while (ul.firstChild) {
@@ -489,8 +531,8 @@ const htmlLegendPlugin = {
 
 const htmlLegendPluginV = {
   id: "htmlLegendV",
-  afterUpdate(chartV, args, options) {
-    const ul = getOrCreateLegendList(chartV, options.containerID);
+  afterUpdate(chartYvsT, args, options) {
+    const ul = getOrCreateLegendList(chartYvsT, options.containerID);
 
     // Remove old legend items
     while (ul.firstChild) {
@@ -498,7 +540,8 @@ const htmlLegendPluginV = {
     }
 
     // Reuse the built-in legendItems generator
-    const items = chartV.options.plugins.legend.labels.generateLabels(chartV);
+    const items =
+      chartYvsT.options.plugins.legend.labels.generateLabels(chartYvsT);
 
     items.forEach((item) => {
       const li = document.createElement("li");
@@ -552,8 +595,8 @@ const htmlLegendPluginV = {
 
 const htmlLegendPluginA = {
   id: "htmlLegendA",
-  afterUpdate(chartA, args, options) {
-    const ul = getOrCreateLegendList(chartA, options.containerID);
+  afterUpdate(chartYvsX, args, options) {
+    const ul = getOrCreateLegendList(chartYvsX, options.containerID);
 
     // Remove old legend items
     while (ul.firstChild) {
@@ -561,7 +604,8 @@ const htmlLegendPluginA = {
     }
 
     // Reuse the built-in legendItems generator
-    const items = chartA.options.plugins.legend.labels.generateLabels(chartA);
+    const items =
+      chartYvsX.options.plugins.legend.labels.generateLabels(chartYvsX);
 
     items.forEach((item) => {
       const li = document.createElement("li");
@@ -614,14 +658,14 @@ const htmlLegendPluginA = {
 };
 
 function updateChart() {
-  position = document.getElementById("initialPosition").value;
+  position = document.getElementById("initialPositionX").value;
   velocity = document.getElementById("initialVelocity").value;
   time = document.getElementById("tmax").value;
-  phase = document.getElementById("Phase").value;
-  document.getElementById("initialPosition").textContent = position;
+  initialAngle = document.getElementById("initialAngle").value;
+  document.getElementById("initialPositionX").textContent = position;
   document.getElementById("initialVelocity").textContent = velocity;
   document.getElementById("tmax").textContent = time;
-  document.getElementById("Phase").textContent = phase;
+  document.getElementById("initialAngle").textContent = initialAngle;
   chartCanvas.data.labels = Array.from({ length: time }, (_, i) => i + 1);
   chartCanvasV.data.labels = Array.from({ length: time }, (_, i) => i + 1);
 }

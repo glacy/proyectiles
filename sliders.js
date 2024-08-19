@@ -1,20 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
   const sliders = [
     {
-      slider: document.getElementById("initialPosition"),
+      slider: document.getElementById("initialPositionX"),
       valueDisplay: document.getElementById("sliderValue1"),
     },
     {
-      slider: document.getElementById("initialVelocity"),
+      slider: document.getElementById("initialPositionY"),
       valueDisplay: document.getElementById("sliderValue2"),
     },
     {
-      slider: document.getElementById("Phase"),
+      slider: document.getElementById("initialVelocity"),
       valueDisplay: document.getElementById("sliderValue3"),
     },
     {
-      slider: document.getElementById("tmax"),
+      slider: document.getElementById("initialAngle"),
       valueDisplay: document.getElementById("sliderValue4"),
+    },
+    {
+      slider: document.getElementById("tmax"),
+      valueDisplay: document.getElementById("sliderValue5"),
     },
   ];
 
