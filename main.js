@@ -117,24 +117,12 @@ function generarGrafico() {
       },
     ],
   };
-  const dataV = {
-    labels: timeArray,
-    datasets: [
-      {
-        label: `\\(v(t) = -${initialPositionX}*${initialVelocity} \\sin(${initialVelocity}  t + ${initialAngle} \\pi)\\)`,
-        borderColor: "rgb(255, 204, 188)",
-        data: velocityArray,
-        fill: false,
-        pointStyle: false,
-      },
-    ],
-  };
 
   const dataYvsX = {
     labels: XpositionArray,
     datasets: [
       {
-        label: `\\(y(x) = ${initialPositionY}+ \\tan(${initialAngle})  x - \\displaystyle\\frac{gx^2}{2(${initialVelocity})^2\\cos^2 (${initialAngle})}\\)`,
+        label: `\\(y(x) = ${initialPositionY}+ \\tan(${initialAngle}^{\\circ})  x - \\displaystyle\\frac{gx^2}{2(${initialVelocity})^2\\cos^2 (${initialAngle}^{\\circ})}\\)`,
         borderColor: "rgb(255, 204, 188)",
         data: YpositionArray,
         fill: false,
