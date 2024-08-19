@@ -38,7 +38,7 @@ Visualización interactiva de la representación gráfica de una molécula de am
 
 :link: [enlace](https://glacy.github.io/MAS/)
 
-Gráfica y ecuación de la posición en función del tiempo. La persona usuaria ingresa los parámetros:
+Gráfica y ecuación de la posición, velocidad y aceleración en función del tiempo. La persona usuaria ingresa los parámetros:
 
 - :point_right: Amplitud
 - :runner: velocidad angular
