@@ -149,7 +149,7 @@ function generarGrafico() {
         display: true,
         title: {
           display: true,
-          text: "Posición (m)",
+          text: "Posición x (m)",
           color: "#3a2c60",
           font: {
             family: "monospace",
